@@ -11,13 +11,13 @@ const sessionIsDeleted = (response) => {
 
 const evaluateUser = async () => {
     console.log("eval user");
-    console.log("was", user);
+    console.log("was", user.value);
     try {
         user.value = await account.get();
     } catch (error) {
         user.value = null;
     }
-    console.log("now is", user);
+    console.log("now is", user.value);
 };
 
 const client = new Client();
@@ -30,8 +30,6 @@ const account = new Account(client);
 // await evaluateUser();
 
 client.subscribe('account', async response => {
-    console.log(response);
-
     if (sessionIsDeleted(response)) {
         user.value = null;
         return;
